@@ -9,6 +9,13 @@ Given that the Queue is a BlockingQueue implementation, how would you insert dat
     The ArrayBlockingQueue.offer() method returns false.
     In these cases i would make the thread sleep, and then try again.
 
+
+                  Throws exception	Special value	  Blocks	        Times out
+                  --------------------------------------------------------------------------
+        Insert	  |  add(e)	        offer(e)	      put(e)	        offer(e, time, unit)
+        Remove	  |  remove()	    poll()	          take()	        poll(time, unit)
+        Examine	  |  element()	    peek()	          not applicable	not applicable
+
 Given that the Queue is a BlockingQueue implementation, how would you fetch data from the Queue (remove(), poll(), take() ) if Production is slow, compared to how we consume items
     I would attempt to access the number using one of the methods.
     I would then sleep, or use a build in timeout that can be provided to the retrieval methods.
