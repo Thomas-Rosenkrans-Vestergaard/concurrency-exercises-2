@@ -1,0 +1,15 @@
+If we need a “large” collection of random numbers, what is the advantage (if any) of introducing a number of threads to “produce” the numbers?
+    Using the producer-consumer pattern, we don't have to wait before the entire collection of random numbers are generated.
+
+Why does the exercise suggest 4 producer threads, and is this always the right  number?
+    ??
+
+Given that the Queue is a BlockingQueue implementation, how would you insert data into the Queue (add(), offer(), put() ) if it’s limited in capacity, and items are produced much faster than they are consumed (Think: what happens when you insert into a full queue)?
+    The ArrayBlockingQueue.add() method throws an IllegalStateException when the object cannot be added due to capacity restrictions.
+    The ArrayBlockingQueue.offer() method returns false.
+    In these cases i would make the thread sleep, and then try again.
+
+Given that the Queue is a BlockingQueue implementation, how would you fetch data from the Queue (remove(), poll(), take() ) if Production is slow, compared to how we consume items
+    I would attempt to access the number using one of the methods.
+    I would then sleep, or use a build in timeout that can be provided to the retrieval methods.
+

@@ -1,0 +1,19 @@
+Run the main method in the Tester class, and make sure you understand conceptually what happens. Especially you should note that these lines : tcn.run() probably takes a noticeable amount of time (why?)
+    The code uses the jsoup library to retrieve the html of the provided websites. The creation of the connection and subsequent data transfer takes much more time than local execution of code.
+    This is done sequentially, and are therefor slow. Running the code in parallel could reduce the execution time to the time of the slowest connection.
+
+Refactor the TagCounter class to extend the Thread class. This should be very simple (why ?)
+    Because the TagCounter class already has a run class, and the default implementation of Thread.start calls the run class.
+
+ Change the Tester class to not call run(), but start the three threads (what's the BIG difference?)
+    The threads will now run in
+
+ This will most likely mean that all your system.out’s will be empty or null (why?)
+    Since the execution of the System.out calls execute before the asyc calls.
+
+ Fix the problem to show content in the system.out’s
+    Calling Thread.join() forces the main thread to wait before continuing execution. Calling Thread.join() on all TagCounter instances fixes the problem.
+
+Explain the results
+    The results are not as clear using my machine. Assuming the time to retrieve the html is constant, and with enough
+    threads and bandwidth, we should be able to retrieve n websites in the time to retrieve one website.

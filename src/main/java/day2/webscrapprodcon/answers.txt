@@ -1,0 +1,4 @@
+Is this the order, in which we added the URL’s to Q1? If not, explain why
+       The order of the produced documents depends on the time it takes to retrieve each document, since the document
+       is added to the result queue as soon as possible.
+
