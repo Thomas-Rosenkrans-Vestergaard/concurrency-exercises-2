@@ -1,0 +1,7 @@
+Does the program behave as expected, if not explain the problem.
+    The program does not behave as expected.
+    ResourceUser1 uses the WORDS resource and then the NUMBERS resource.
+    ResourceUser2 uses the NUMBERS resource and then the WORDS resource.
+    Neither releases their resource, until the other user releases theirs.
+    because of this a deadlock occurs.
+

@@ -5,8 +5,6 @@ import org.jsoup.select.Elements;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DocumentConsumer implements Runnable
 {
@@ -24,33 +22,26 @@ public class DocumentConsumer implements Runnable
     @Override
     public void run()
     {
-        boolean  moreDocumentsToConsume = true;
-        Document doc;
-        int      totalDivs              = 0;
+        int totalDivs = 0;
         while (true) {
             try {
 
-                if (counter.readProduced() != counter.readConsumed()) {
-
-                    doc = producedDocuments.poll(200, TimeUnit.MILLISECONDS);
-                    if (doc != null) {
-                        String   title = doc.title();
-                        Elements divs  = doc.select("div");
-                        totalDivs += divs.size();
-                        System.out.println(title);
-                        System.out.println(divs.size());
-                    } else {
-                        moreDocumentsToConsume = false;
-                    }
-                } else {
+                if (counter.readProduced() == counter.readConsumed()) {
                     System.out.println("Sum of all Divs:" + totalDivs);
                     return;
                 }
 
+                Document doc = producedDocuments.poll(200, TimeUnit.MILLISECONDS);
+                if (doc != null) {
+                    String   title = doc.title();
+                    Elements divs  = doc.select("div");
+                    totalDivs += divs.size();
+                    System.out.println(title);
+                    System.out.println(divs.size());
+                }
+
             } catch (InterruptedException e) {
-                moreDocumentsToConsume = false;
-            } catch (Exception ex) {
-                Logger.getLogger(DocumentConsumer.class.getName()).log(Level.SEVERE, null, ex);
+                throw new IllegalArgumentException(e);
             }
         }
     }
