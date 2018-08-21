@@ -3,7 +3,6 @@ package day2.rndnumberprodcon;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 public class RandomNumberConsumer implements Runnable
 {
@@ -24,12 +23,7 @@ public class RandomNumberConsumer implements Runnable
     {
         for (int i = 0; i < 400; i++) {
             try {
-                Integer number = numbersProduced.poll(100, TimeUnit.MILLISECONDS);
-                if (number == null) {
-                    i--;
-                    continue;
-                }
-
+                Integer number = numbersProduced.take();
                 sumTotal += number;
                 if (number < 50)
                     below50.add(number);

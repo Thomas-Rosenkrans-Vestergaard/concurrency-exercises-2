@@ -20,10 +20,10 @@ public class RandomNumberProducer implements Runnable
     public void run()
     {
         for (int x = 1; x <= MAX_NUMBERS_TO_PRODUCE; x++) {
-            int number = (int) ((Math.random() * MAX_RANDOM + 1));
             try {
-                numbersProduced.add(number);
-            } catch (IllegalStateException e) {
+                int number = (int) ((Math.random() * MAX_RANDOM + 1));
+                numbersProduced.put(number);
+            } catch (InterruptedException e) {
                 x--;
             }
         }
