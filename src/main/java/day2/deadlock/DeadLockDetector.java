@@ -6,15 +6,21 @@ import java.lang.management.ThreadMXBean;
 class DeadLockDetector extends Thread
 {
 
+    private boolean run = true;
     ThreadMXBean bean = ManagementFactory.getThreadMXBean();
 
     public void run()
     {
-        while (true) {
+        while (run) {
             long[] threadIds = bean.findDeadlockedThreads();
             if (threadIds != null)
-                System.out.println("Deadlock");
+                throw new IllegalStateException("Deadlock");
         }
+    }
+
+    public void end()
+    {
+        this.run = false;
     }
 }
 

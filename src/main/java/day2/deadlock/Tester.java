@@ -11,8 +11,8 @@ public class Tester
 
         try {
 
-            //            DeadLockDetector dead = new DeadLockDetector();
-            //            dead.start();
+            DeadLockDetector dead = new DeadLockDetector();
+            dead.start();
 
             ResourceContainer resources = new ResourceContainer();
             ResourceUser1     t1        = new ResourceUser1(resources);
@@ -22,6 +22,7 @@ public class Tester
 
             t1.join();
             t2.join();
+            dead.end();
 
             System.out.println("Done");
             System.out.println("Words incrementProduced: " + resources.getResourceWords().size());
