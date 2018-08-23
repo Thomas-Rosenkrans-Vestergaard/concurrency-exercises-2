@@ -30,7 +30,7 @@ public class DocumentProducer implements Runnable
         while (moreUrlsToFetch) {
             try {
 
-                String url = urlsToUse.take();
+                String url = urlsToUse.poll();
                 if (url == null) {
                     moreUrlsToFetch = false;
                     return;
